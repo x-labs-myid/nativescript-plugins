@@ -37,12 +37,19 @@ module.exports = {
       },
     },
     '⚙️': {
-      script: `npx cowsay "@nativescript/* packages will keep your ⚙️ cranking"`,
-      description: '_____________  @nativescript/*  _____________',
+      script: `npx cowsay "@/* packages will keep your ⚙️ cranking"`,
+      description: '_____________  @/*  _____________',
     },
     // packages
     // build output is always in dist/packages
-    '@nativescript': {
+    '@': {
+      // @/rootbeer
+      rootbeer: {
+        build: {
+          script: 'nx run rootbeer:build.all',
+          description: '@/rootbeer: Build',
+        },
+      },
       'build-all': {
         script: 'nx run-many --target=build.all --all',
         description: 'Build all packages',
@@ -53,6 +60,10 @@ module.exports = {
       description: '_____________  Focus (VS Code supported)  _____________',
     },
     focus: {
+      rootbeer: {
+        script: 'nx run rootbeer:focus',
+        description: 'Focus on @/rootbeer',
+      },
       reset: {
         script: 'nx g @nativescript/plugin-tools:focus-packages',
         description: 'Reset Focus',

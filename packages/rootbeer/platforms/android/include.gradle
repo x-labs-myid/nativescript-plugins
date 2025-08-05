@@ -1,0 +1,15 @@
+allprojects {
+		repositories {
+			maven { url 'https://jitpack.io' }
+		}
+}
+repositories {
+  mavenCentral()
+  google()
+}
+
+android {}
+
+dependencies {
+  implementation 'com.scottyab:rootbeer-lib:0.1.1'
+}

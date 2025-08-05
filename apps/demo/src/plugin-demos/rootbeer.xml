@@ -1,0 +1,38 @@
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" navigatingTo="navigatingTo" class="page">
+    <Page.actionBar>
+        <ActionBar title="Rootbeer Demo" icon="" class="action-bar">
+        </ActionBar>
+    </Page.actionBar>
+    <StackLayout class="p-20">
+        <ScrollView class="h-full">
+            <StackLayout>
+                <!-- Status Display -->
+                <Label text="{{ checkResults }}" class="h3 text-center m-10" textWrap="true"/>
+                
+                <!-- Loading Indicator -->
+                <ActivityIndicator busy="{{ isChecking }}" class="m-10"/>
+                
+                <!-- Basic Tests -->
+                <Label text="Basic Root Detection" class="h2 m-t-20 m-b-10"/>
+                <Button text="Quick Root Check" tap="{{ testIt }}" class="btn btn-primary m-5" isEnabled="{{ !isChecking }}"/>
+                <Button text="Root Check with BusyBox" tap="{{ testWithBusyBox }}" class="btn btn-primary m-5" isEnabled="{{ !isChecking }}"/>
+                
+                <!-- Detailed Tests -->
+                <Label text="Detailed Analysis" class="h2 m-t-20 m-b-10"/>
+                <Button text="Perform Detailed Checks" tap="{{ performDetailedChecks }}" class="btn btn-outline m-5" isEnabled="{{ !isChecking }}"/>
+                
+                <!-- Binary Checks -->
+                <Label text="Binary Detection" class="h2 m-t-20 m-b-10"/>
+                <Button text="Check for Su Binary" tap="{{ checkForSuBinary }}" class="btn btn-outline m-5" isEnabled="{{ !isChecking }}"/>
+                <Button text="Check for BusyBox Binary" tap="{{ checkForBusyBoxBinary }}" class="btn btn-outline m-5" isEnabled="{{ !isChecking }}"/>
+                
+                <!-- Detailed Results -->
+                <Label text="Detailed Results:" class="h3 m-t-20 m-b-10" visibility="{{ detailedResults ? 'visible' : 'collapsed' }}"/>
+                <Label text="{{ detailedResults }}" class="text-left m-10" textWrap="true" visibility="{{ detailedResults ? 'visible' : 'collapsed' }}"/>
+                
+                <!-- Info -->
+                <Label text="ℹ️ Note: Root detection is not 100% accurate and can be bypassed by advanced users." class="text-center m-20 text-muted" textWrap="true"/>
+            </StackLayout>
+        </ScrollView>
+    </StackLayout>
+</Page>

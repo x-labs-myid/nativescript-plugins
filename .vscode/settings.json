@@ -1,0 +1,10 @@
+{
+  "files.exclude": {
+    "**/apps/demo": false,
+    "**/packages/rootbeer": false
+  },
+  "search.exclude": {
+    "**/apps/demo": false,
+    "**/packages/rootbeer": false
+  }
+}

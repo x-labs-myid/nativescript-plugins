@@ -1,0 +1,65 @@
+{
+  "name": "rootbeer",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "packages/rootbeer",
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "options": {
+        "outputPath": "dist/packages/rootbeer",
+        "tsConfig": "packages/rootbeer/tsconfig.json",
+        "packageJson": "packages/rootbeer/package.json",
+        "main": "packages/rootbeer/index.d.ts",
+        "assets": [
+          "packages/rootbeer/*.md",
+          "packages/rootbeer/index.d.ts",
+          "LICENSE",
+          {
+            "glob": "**/*",
+            "input": "packages/rootbeer/platforms/",
+            "output": "./platforms/"
+          }
+        ],
+        "dependsOn": [
+          {
+            "target": "build.all",
+            "projects": "dependencies"
+          }
+        ]
+      }
+    },
+    "build.all": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": ["node tools/scripts/build-finish.ts rootbeer"],
+        "parallel": false
+      },
+      "outputs": ["{workspaceRoot}/dist/packages/rootbeer"],
+      "dependsOn": [
+        {
+          "target": "build.all",
+          "projects": "dependencies"
+        },
+        {
+          "target": "build",
+          "projects": "self"
+        }
+      ]
+    },
+    "focus": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": ["nx g @nativescript/plugin-tools:focus-packages rootbeer"],
+        "parallel": false
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:eslint",
+      "options": {
+        "lintFilePatterns": ["packages/rootbeer/**/*.ts"]
+      }
+    }
+  },
+  "tags": []
+}
