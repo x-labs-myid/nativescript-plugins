@@ -5,7 +5,7 @@ npm run setup
 npm start
 ```
 
-- [@/rootbeer](packages/rootbeer/README.md)
+- [@x-labs-myid/rootbeer](packages/rootbeer/README.md)
 
 # How to use?
 
