@@ -1,4 +1,4 @@
-# @/\* plugins
+# @x-labs-myid/\* plugins
 
 ```
 npm run setup
