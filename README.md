@@ -1,4 +1,9 @@
-- [@/phone-number-field](packages/phone-number-field/README.md)
+# NativeScript plugin of X-LABS | my.id
+
+## User Interface
+- [@x-labs-myid/phone-number-field](packages/phone-number-field/README.md)
+
+## Utilities
 - [@x-labs-myid/rootbeer](packages/rootbeer/README.md)
 
 # How to use?

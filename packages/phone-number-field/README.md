@@ -1,7 +1,7 @@
-# @/phone-number-field
+# @x-labs-myid/phone-number-field
 
 ```javascript
-npm install @/phone-number-field
+npm install @x-labs-myid/phone-number-field
 ```
 
 ## Usage
