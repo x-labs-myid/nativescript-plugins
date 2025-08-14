@@ -1,0 +1,83 @@
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" 
+      xmlns:pnf="@x-labs-myid/phone-number-field" 
+      navigatingTo="navigatingTo" 
+      class="page">
+    
+    <ActionBar title="Phone Number Field Demo" class="action-bar" />
+    
+    <ScrollView>
+        <StackLayout class="p-20">
+            
+            <!-- Phone Number Input -->
+            <Label text="Phone Number Field Demo" class="h2 text-center m-10" />
+            
+            <pnf:PhoneNumberField 
+                id="phoneNumberField"
+                text="{{ phoneNumber }}" 
+                countryCode="{{ countryCode }}"
+                placeholder="Enter phone number"
+                autoValidate="{{ autoValidate }}"
+                showCountryPicker="{{ showCountryPicker }}"
+                textChange="{{ onTextChange }}"
+                validationChange="{{ onValidationChange }}"
+                countryCodeChange="{{ onCountryCodeChange }}"
+                class="custom-phone-input m-10"/>
+            
+            <!-- Validation Status -->
+            <StackLayout class="validation-status m-10 p-10" backgroundColor="{{ isValid ? '#e8f5e8' : '#ffeaea' }}">
+                <Label text="{{ isValid ? '✓ Valid' : '✗ Invalid' }}" class="{{ isValid ? 'text-success' : 'text-danger' }} font-weight-bold" />
+                <Label text="{{ validationMessage }}" class="text-sm" textWrap="true" />
+                <Label text="Country: {{ selectedCountryName }} ({{ countryCode }})" class="text-sm" />
+                <Label text="Formatted: {{ formattedNumber }}" class="text-sm" visibility="{{ formattedNumber ? 'visible' : 'collapsed' }}" />
+            </StackLayout>
+            
+            <!-- Settings -->
+            <Label text="Settings" class="h3 m-t-20" />
+            <StackLayout orientation="horizontal" class="m-10">
+                <Switch checked="{{ autoValidate }}" tap="{{ toggleAutoValidate }}" />
+                <Label text="Auto Validate" class="m-l-10" verticalAlignment="center" />
+            </StackLayout>
+            
+            <StackLayout orientation="horizontal" class="m-10">
+                <Switch checked="{{ showCountryPicker }}" tap="{{ toggleCountryPicker }}" />
+                <Label text="Show Country Picker" class="m-l-10" verticalAlignment="center" />
+            </StackLayout>
+            
+            <!-- Quick Country Selection -->
+            <Label text="Quick Country Selection" class="h3 m-t-20" />
+            <StackLayout orientation="horizontal" class="m-10">
+                <Button text="🇮🇩 ID" tap="{{ setIndonesia }}" class="btn btn-outline m-r-5" />
+                <Button text="🇺🇸 US" tap="{{ setUSA }}" class="btn btn-outline m-r-5" />
+                <Button text="🇬🇧 GB" tap="{{ setUK }}" class="btn btn-outline" />
+            </StackLayout>
+            
+            <!-- Test Actions -->
+            <Label text="Test Actions" class="h3 m-t-20" />
+            <StackLayout orientation="horizontal" class="m-10">
+                <Button text="Validate" tap="{{ manualValidation }}" class="btn btn-primary m-r-5" />
+                <Button text="Format" tap="{{ formatNumber }}" class="btn btn-secondary m-r-5" />
+                <Button text="Clear" tap="{{ clearField }}" class="btn btn-outline" />
+            </StackLayout>
+            
+            <!-- Sample Numbers -->
+            <Label text="Sample Numbers" class="h3 m-t-20" />
+            <StackLayout class="m-10">
+                <Button text="Indonesian Mobile: +62 812 3456 7890" tap="{{ setIndonesianMobile }}" class="btn btn-outline m-b-5" />
+                <Button text="US Mobile: +1 555 123 4567" tap="{{ setUSMobile }}" class="btn btn-outline m-b-5" />
+                <Button text="Invalid Number: 123" tap="{{ setInvalidNumber }}" class="btn btn-outline m-b-5" />
+                <Button text="International: +44 20 7946 0958" tap="{{ setInternationalNumber }}" class="btn btn-outline" />
+            </StackLayout>
+            
+            <!-- Test Suite -->
+            <Label text="Test Suite" class="h3 m-t-20" />
+            <Button text="Run All Tests" tap="{{ runAllTests }}" class="btn btn-success m-10" />
+            
+            <!-- Test Results -->
+            <Label text="Test Results:" class="h4 m-t-10" visibility="{{ testResults ? 'visible' : 'collapsed' }}" />
+            <Label text="{{ testResults }}" class="test-results m-10 p-10" textWrap="true" 
+                   backgroundColor="#f5f5f5" 
+                   visibility="{{ testResults ? 'visible' : 'collapsed' }}" />
+            
+        </StackLayout>
+    </ScrollView>
+</Page>

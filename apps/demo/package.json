@@ -5,7 +5,8 @@
   "repository": "<fill-your-repository-here>",
   "dependencies": {
     "@nativescript/core": "*",
-    "@x-labs-myid/rootbeer": "file:../../packages/rootbeer"
+    "@x-labs-myid/rootbeer": "file:../../packages/rootbeer",
+    "@x-labs-myid/phone-number-field": "file:../../packages/phone-number-field"
   },
   "devDependencies": {
     "@nativescript/android": "~8.9.0",

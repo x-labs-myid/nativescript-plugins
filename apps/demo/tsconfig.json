@@ -6,7 +6,8 @@
     "paths": {
       "~/*": ["src/*"],
       "@demo/shared": ["../../tools/demo/index.ts"],
-      "@x-labs-myid/rootbeer": ["../../packages/rootbeer/index.d.ts"]
+      "@x-labs-myid/rootbeer": ["../../packages/rootbeer/index.d.ts"],
+      "@x-labs-myid/phone-number-field": ["../../packages/phone-number-field/index.d.ts"]
     }
   }
 }

@@ -50,6 +50,13 @@ module.exports = {
           description: '@/rootbeer: Build',
         },
       },
+      // @/phone-number-field
+      'phone-number-field': {
+        build: {
+          script: 'nx run phone-number-field:build.all',
+          description: '@/phone-number-field: Build',
+        },
+      },
       'build-all': {
         script: 'nx run-many --target=build.all --all',
         description: 'Build all packages',
@@ -63,6 +70,10 @@ module.exports = {
       rootbeer: {
         script: 'nx run rootbeer:focus',
         description: 'Focus on @/rootbeer',
+      },
+      'phone-number-field': {
+        script: 'nx run phone-number-field:focus',
+        description: 'Focus on @/phone-number-field',
       },
       reset: {
         script: 'nx g @nativescript/plugin-tools:focus-packages',

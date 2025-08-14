@@ -22,7 +22,8 @@
     "paths": {
       "@demo/shared": ["tools/demo/index.ts"],
       "@/*": ["packages/*"],
-      "@/rootbeer": ["packages/rootbeer/index.d.ts"]
+      "@/rootbeer": ["packages/rootbeer/index.d.ts"],
+      "@/phone-number-field": ["packages/phone-number-field/index.d.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

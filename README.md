@@ -1,10 +1,4 @@
-# @x-labs-myid/\* plugins
-
-```
-npm run setup
-npm start
-```
-
+- [@/phone-number-field](packages/phone-number-field/README.md)
 - [@x-labs-myid/rootbeer](packages/rootbeer/README.md)
 
 # How to use?

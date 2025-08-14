@@ -4,3 +4,21 @@
 .rounded {
   border-radius: 20;
 }
+// Default styling dengan border-color property
+.custom-phone-input {
+  background-color: #f8f9fa;
+  border-radius: 8;
+  padding: 30;
+  font-size: 16;
+  margin: 10;
+  // Menggunakan border-color CSS property
+  border-color: blue;
+  // Menggunakan accent-color CSS property
+  accent-color: #ffffff;
+
+  // Kustomisasi tombol country picker
+  country-button-background-color: blue; // Hijau
+  country-button-text-color: #ffffff; // Putih
+  country-button-border-radius: 5; // Border radius 12dp
+  country-button-padding: 5; // Padding 12dp
+}
