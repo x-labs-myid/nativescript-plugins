@@ -26,9 +26,7 @@ npm install @x-labs-myid/phone-number-field
 
 ## Usage
 
-### TypeScript Example
-
-#### XML Layout
+### XML Layout
 ```xml
 <Page xmlns="http://schemas.nativescript.org/tns.xsd" 
   xmlns:pnf="@x-labs-myid/phone-number-field">
@@ -49,6 +47,7 @@ npm install @x-labs-myid/phone-number-field
 </Page>
 ```
 
+### TypeScript or JavaScript
 ``` javascript
   context.set('phoneNumber', '');
   context.set('countryCode', 'ID');
@@ -70,6 +69,7 @@ npm install @x-labs-myid/phone-number-field
   }
 ```
 
+### Styling
 ``` scss
 .custom-phone-input {
   background-color: #f8f9fa;
