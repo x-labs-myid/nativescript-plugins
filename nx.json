@@ -45,5 +45,6 @@
       }
     }
   },
+  "npmScope": "x-labs-myid",
   "useLegacyCache": true
 }

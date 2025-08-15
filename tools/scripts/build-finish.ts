@@ -54,6 +54,15 @@ function cleanPackage() {
     // we don't need module or type properties at the moment
     delete packageJson['module'];
     delete packageJson['type'];
+
+    // Pastikan nama package tetap menggunakan scoped name
+    if (packageName === 'rootbeer') {
+      packageJson.name = '@x-labs-myid/rootbeer';
+    }
+    if (packageName === 'phone-number-field') {
+      packageJson.name = '@x-labs-myid/phone-number-field';
+    }
+
     fs.writeFileSync(packageJsonPath, serializeJson(packageJson));
 
     const angularNpmIgnorePath = path.resolve(rootDir, 'dist', 'packages', packageName, 'angular', '.npmignore');
