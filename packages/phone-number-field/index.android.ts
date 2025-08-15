@@ -130,23 +130,23 @@ export class PhoneNumberField extends PhoneNumberFieldCommon {
   private setupTextChangeListener(): void {
     const textWatcher = new android.text.TextWatcher({
       beforeTextChanged: (s: any, start: number, count: number, after: number) => {
-        console.log('beforeTextChanged:', { start, count, after, text: s.toString() });
+        // console.log('beforeTextChanged:', { start, count, after, text: s.toString() });
       },
       onTextChanged: (s: any, start: number, before: number, count: number) => {
-        console.log('onTextChanged:', { start, before, count, text: s.toString() });
-        console.log('Selection:', this._editText.getSelectionStart(), this._editText.getSelectionEnd());
+        // console.log('onTextChanged:', { start, before, count, text: s.toString() });
+        // console.log('Selection:', this._editText.getSelectionStart(), this._editText.getSelectionEnd());
       },
       afterTextChanged: (s: any) => {
         const newText = s.toString();
-        console.log('afterTextChanged:', newText);
+        // console.log('afterTextChanged:', newText);
 
         // CRITICAL: Check if text is being reversed (RTL behavior)
         const cursorPos = this._editText.getSelectionStart();
-        console.log('Cursor position:', cursorPos);
+        // console.log('Cursor position:', cursorPos);
 
         // If cursor is at 0 and we have text, this indicates RTL behavior
         if (cursorPos === 0 && newText.length > 0) {
-          console.log('RTL behavior detected, fixing...');
+          //   console.log('RTL behavior detected, fixing...');
 
           // Temporarily remove listener
           this._editText.removeTextChangedListener(textWatcher);
@@ -162,7 +162,7 @@ export class PhoneNumberField extends PhoneNumberFieldCommon {
         if (this.autoMask) {
           const maskedText = this.applyMask(newText);
           if (maskedText !== newText) {
-            console.log('Masking:', { original: newText, masked: maskedText });
+            // console.log('Masking:', { original: newText, masked: maskedText });
 
             // Calculate proper cursor position
             let newCursorPos = maskedText.length;
@@ -233,6 +233,16 @@ export class PhoneNumberField extends PhoneNumberFieldCommon {
           // Update property - ini akan otomatis trigger onCountryCodeChanged di common.ts
           this.countryCode = selectedCountry.code;
           this._countryButton.setText(`${selectedCountry.flag} ${selectedCountry.dialCode}`);
+          dialog.dismiss();
+        },
+      }),
+    );
+
+    // Tambahkan tombol Close
+    builder.setNegativeButton(
+      'Close',
+      new android.content.DialogInterface.OnClickListener({
+        onClick: (dialog: android.content.DialogInterface, which: number) => {
           dialog.dismiss();
         },
       }),

@@ -27,6 +27,9 @@ export class DemoModel extends DemoSharedPhoneNumberField {
   formattedNumber: string;
   testResults: string;
 
+  // Tambahkan property untuk informasi detail
+  phoneNumberDetailInfo: string;
+
   constructor() {
     super();
     this.initializeDemo();
@@ -52,13 +55,14 @@ export class DemoModel extends DemoSharedPhoneNumberField {
   private initializeDemo() {
     this.set('phoneNumber', '');
     this.set('countryCode', 'ID');
-    this.set('autoValidate', false);
+    this.set('autoValidate', true);
     this.set('showCountryPicker', true);
     this.set('isValid', false);
     this.set('validationMessage', 'Enter a phone number');
     this.set('selectedCountryName', 'Indonesia');
     this.set('formattedNumber', '');
     this.set('testResults', '');
+    this.set('phoneNumberDetailInfo', ''); // Tambahkan ini
 
     // Temporarily disable auto masking to fix RTL issue
     if (this._phoneNumberField) {
@@ -71,6 +75,9 @@ export class DemoModel extends DemoSharedPhoneNumberField {
     const phoneNumber = args.value || args.object.text;
     this.set('phoneNumber', phoneNumber);
 
+    // Update informasi detail nomor telepon
+    this.updatePhoneNumberDetailInfo();
+
     if (this._phoneNumberField && this.get('autoValidate')) {
       try {
         const result = this._phoneNumberField.validatePhoneNumber();
@@ -78,6 +85,21 @@ export class DemoModel extends DemoSharedPhoneNumberField {
       } catch (error) {
         console.error('Validation error:', error);
         this.updateValidationStatus({ isValid: false, errorMessage: 'Validation failed' });
+      }
+    }
+  }
+
+  // Tambahkan method untuk update informasi detail
+  private updatePhoneNumberDetailInfo() {
+    if (this._phoneNumberField) {
+      const detailInfo = this._phoneNumberField.getPhoneNumberDetailInfo();
+
+      if (detailInfo) {
+        const infoText = `Number: ${detailInfo.number}\n` + `Country: ${detailInfo.country}\n` + `National: ${detailInfo.national}\n` + `International: ${detailInfo.international}\n` + `URI: ${detailInfo.uri}\n` + `Type: ${detailInfo.type}\n` + `Possible: ${detailInfo.possible}\n` + `Valid: ${detailInfo.valid}`;
+
+        this.set('phoneNumberDetailInfo', infoText);
+      } else {
+        this.set('phoneNumberDetailInfo', '');
       }
     }
   }
@@ -250,72 +272,5 @@ export class DemoModel extends DemoSharedPhoneNumberField {
     if (this._phoneNumberField) {
       this._phoneNumberField.text = phoneNumber;
     }
-  }
-
-  // Test Suite - Fixed to use this.set() and better error handling
-  runAllTests() {
-    if (!this._phoneNumberField) {
-      this.set('testResults', 'Error: PhoneNumberField not available for testing');
-      return;
-    }
-
-    let results = 'Test Results:\n\n';
-    let passCount = 0;
-    let totalTests = 4;
-
-    try {
-      // Test 1: Indonesian number
-      this._phoneNumberField.countryCode = 'ID';
-      this._phoneNumberField.text = '081234567890';
-      const result1 = this._phoneNumberField.validatePhoneNumber();
-      const message1 = result1.errorMessage || (result1.isValid ? 'Valid' : 'Invalid');
-      const test1Pass = result1.isValid;
-      if (test1Pass) passCount++;
-      results += `1. Indonesian Mobile: ${test1Pass ? 'PASS' : 'FAIL'} - ${message1}\n`;
-
-      // Test 2: US number
-      this._phoneNumberField.countryCode = 'US';
-      this._phoneNumberField.text = '5551234567';
-      const result2 = this._phoneNumberField.validatePhoneNumber();
-      const message2 = result2.errorMessage || (result2.isValid ? 'Valid' : 'Invalid');
-      const test2Pass = result2.isValid;
-      if (test2Pass) passCount++;
-      results += `2. US Mobile: ${test2Pass ? 'PASS' : 'FAIL'} - ${message2}\n`;
-
-      // Test 3: Invalid number
-      this._phoneNumberField.text = '123';
-      const result3 = this._phoneNumberField.validatePhoneNumber();
-      const message3 = result3.errorMessage || (result3.isValid ? 'Valid' : 'Invalid');
-      const test3Pass = !result3.isValid; // Should be invalid
-      if (test3Pass) passCount++;
-      results += `3. Invalid Number: ${test3Pass ? 'PASS' : 'FAIL'} - ${message3}\n`;
-
-      // Test 4: International format
-      this._phoneNumberField.text = '+62 812 3456 7890';
-      const result4 = this._phoneNumberField.validatePhoneNumber();
-      const message4 = result4.errorMessage || (result4.isValid ? 'Valid' : 'Invalid');
-      const test4Pass = result4.isValid;
-      if (test4Pass) passCount++;
-      results += `4. International Format: ${test4Pass ? 'PASS' : 'FAIL'} - ${message4}\n`;
-
-      results += `\nSummary: ${passCount}/${totalTests} tests passed`;
-    } catch (error) {
-      results += `\nError running tests: ${error.message}`;
-      console.error('Test suite error:', error);
-    }
-
-    this.set('testResults', results);
-
-    // Reset to default using this.set()
-    this.set('countryCode', 'ID');
-    this.set('phoneNumber', '');
-    this.set('selectedCountryName', 'Indonesia');
-
-    if (this._phoneNumberField) {
-      this._phoneNumberField.countryCode = 'ID';
-      this._phoneNumberField.text = '';
-    }
-
-    console.log('Test suite completed:', results);
   }
 }

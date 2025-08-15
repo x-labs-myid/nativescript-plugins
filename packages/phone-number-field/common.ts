@@ -1,5 +1,5 @@
 import { View, Property, EventData, booleanConverter, CssProperty, Style } from '@nativescript/core';
-import { parsePhoneNumber, AsYouType, CountryCode } from 'libphonenumber-js';
+import { parsePhoneNumber, AsYouType, CountryCode } from 'libphonenumber-js/max';
 
 export interface PhoneNumberValidationResult {
   isValid: boolean;
@@ -15,6 +15,18 @@ export interface CountryInfo {
   name: string;
   flag: string;
   dialCode: string;
+}
+
+// Tambahkan interface untuk informasi detail nomor telepon
+export interface PhoneNumberDetailInfo {
+  number: string;
+  country: string;
+  national: string;
+  international: string;
+  uri: string;
+  type: string;
+  possible: boolean;
+  valid: boolean;
 }
 
 // Properties
@@ -80,52 +92,52 @@ export abstract class PhoneNumberFieldCommon extends View {
 
   // Property getters/setters - Fixed to use new property system
   get text(): string {
-    return this._getValue(PhoneNumberFieldCommon.textProperty);
+    return this.get('text') || '';
   }
   set text(value: string) {
-    this._setValue(PhoneNumberFieldCommon.textProperty, value);
+    this.set('text', value);
   }
 
   get countryCode(): CountryCode {
-    return this._getValue(PhoneNumberFieldCommon.countryCodeProperty);
+    return this.get('countryCode') || 'ID';
   }
   set countryCode(value: CountryCode) {
-    this._setValue(PhoneNumberFieldCommon.countryCodeProperty, value);
+    this.set('countryCode', value);
   }
 
   get placeholder(): string {
-    return this._getValue(PhoneNumberFieldCommon.placeholderProperty);
+    return this.get('placeholder') || 'Enter phone number';
   }
   set placeholder(value: string) {
-    this._setValue(PhoneNumberFieldCommon.placeholderProperty, value);
+    this.set('placeholder', value);
   }
 
   get autoValidate(): boolean {
-    return this._getValue(PhoneNumberFieldCommon.autoValidateProperty);
+    return this.get('autoValidate') !== false;
   }
   set autoValidate(value: boolean) {
-    this._setValue(PhoneNumberFieldCommon.autoValidateProperty, value);
+    this.set('autoValidate', value);
   }
 
   get showCountryPicker(): boolean {
-    return this._getValue(PhoneNumberFieldCommon.showCountryPickerProperty);
+    return this.get('showCountryPicker') !== false;
   }
   set showCountryPicker(value: boolean) {
-    this._setValue(PhoneNumberFieldCommon.showCountryPickerProperty, value);
+    this.set('showCountryPicker', value);
   }
 
   get autoMask(): boolean {
-    return this._getValue(PhoneNumberFieldCommon.autoMaskProperty);
+    return this.get('autoMask') !== false;
   }
   set autoMask(value: boolean) {
-    this._setValue(PhoneNumberFieldCommon.autoMaskProperty, value);
+    this.set('autoMask', value);
   }
 
   get maxLength(): number {
-    return this._getValue(PhoneNumberFieldCommon.maxLengthProperty);
+    return this.get('maxLength') || 0;
   }
   set maxLength(value: number) {
-    this._setValue(PhoneNumberFieldCommon.maxLengthProperty, value);
+    this.set('maxLength', value);
   }
 
   // Auto masking functionality
@@ -319,6 +331,35 @@ export abstract class PhoneNumberFieldCommon extends View {
     }
   }
 
+  // Tambahkan method untuk mendapatkan informasi detail nomor telepon
+  public getPhoneNumberDetailInfo(): PhoneNumberDetailInfo | null {
+    try {
+      if (!this.text || this.text.trim() === '') {
+        return null;
+      }
+
+      const phoneNumber = parsePhoneNumber(this.text, this.countryCode);
+
+      if (!phoneNumber) {
+        return null;
+      }
+
+      return {
+        number: phoneNumber.number,
+        country: phoneNumber.country || this.countryCode,
+        national: phoneNumber.formatNational(),
+        international: phoneNumber.formatInternational(),
+        uri: phoneNumber.getURI(),
+        type: phoneNumber.getType() || 'UNKNOWN',
+        possible: phoneNumber.isPossible(),
+        valid: phoneNumber.isValid(),
+      };
+    } catch (error) {
+      console.error('Error getting phone number detail info:', error);
+      return null;
+    }
+  }
+
   // Event handlers
   // Event handlers
   public onTextChanged(oldValue: string, newValue: string): void {
@@ -327,12 +368,28 @@ export abstract class PhoneNumberFieldCommon extends View {
       const maskedText = this.applyMask(newValue);
       if (maskedText !== newValue) {
         // Prevent infinite loop by checking if text actually changed
-        this._setValue(PhoneNumberFieldCommon.textProperty, maskedText);
+        this.set('text', maskedText);
         return;
       }
     }
 
-    // ... existing code ...
+    // Trigger validation if auto validate is enabled
+    if (this.autoValidate) {
+      const validation = this.validatePhoneNumber();
+      this.notify({
+        eventName: 'validationChange',
+        object: this,
+        validation: validation,
+      });
+    }
+
+    // Notify text change
+    this.notify({
+      eventName: 'textChange',
+      object: this,
+      oldValue,
+      newValue,
+    });
   }
 
   public onCountryCodeChanged(oldValue: CountryCode, newValue: CountryCode): void {
@@ -342,7 +399,7 @@ export abstract class PhoneNumberFieldCommon extends View {
     if (this.autoMask && this.text) {
       const maskedText = this.applyMask(this.text);
       if (maskedText !== this.text) {
-        this._setValue(PhoneNumberFieldCommon.textProperty, maskedText);
+        this.set('text', maskedText);
       }
     }
 
