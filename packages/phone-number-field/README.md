@@ -2,6 +2,11 @@
 
 A NativeScript plugin for phone number input field with validation and country code selection using [libphonenumber-js](https://www.npmjs.com/package/libphonenumber-js). Inspired by [react-phone-number-input](https://www.npmjs.com/package/react-phone-number-input).
 
+<img width="501" height="93" alt="image" src="https://github.com/user-attachments/assets/32184c2d-e7b2-4f82-82e8-326497897678" />
+
+<img width="533" height="114" alt="image" src="https://github.com/user-attachments/assets/829b1261-1b21-46d9-a3d9-72a36caa7840" />
+
+
 ## Platforms
 
 - Android
@@ -25,6 +30,7 @@ npm install @x-labs-myid/phone-number-field
 ```
 
 ## Usage
+Full example follow code of the [Demo App](https://github.com/x-labs-myid/nativescript-plugins/tree/main/apps/demo/src/plugin-demos).
 
 ### XML Layout
 ```xml
