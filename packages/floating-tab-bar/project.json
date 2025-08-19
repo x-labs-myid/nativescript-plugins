@@ -1,0 +1,65 @@
+{
+  "name": "floating-tab-bar",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "packages/floating-tab-bar",
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "options": {
+        "outputPath": "dist/packages/floating-tab-bar",
+        "tsConfig": "packages/floating-tab-bar/tsconfig.json",
+        "packageJson": "packages/floating-tab-bar/package.json",
+        "main": "packages/floating-tab-bar/index.d.ts",
+        "assets": [
+          "packages/floating-tab-bar/*.md",
+          "packages/floating-tab-bar/index.d.ts",
+          "LICENSE",
+          {
+            "glob": "**/*",
+            "input": "packages/floating-tab-bar/platforms/",
+            "output": "./platforms/"
+          }
+        ],
+        "dependsOn": [
+          {
+            "target": "build.all",
+            "projects": "dependencies"
+          }
+        ]
+      }
+    },
+    "build.all": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": ["node tools/scripts/build-finish.ts floating-tab-bar"],
+        "parallel": false
+      },
+      "outputs": ["{workspaceRoot}/dist/packages/floating-tab-bar"],
+      "dependsOn": [
+        {
+          "target": "build.all",
+          "projects": "dependencies"
+        },
+        {
+          "target": "build",
+          "projects": "self"
+        }
+      ]
+    },
+    "focus": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": ["nx g @nativescript/plugin-tools:focus-packages floating-tab-bar"],
+        "parallel": false
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:eslint",
+      "options": {
+        "lintFilePatterns": ["packages/floating-tab-bar/**/*.ts"]
+      }
+    }
+  },
+  "tags": []
+}

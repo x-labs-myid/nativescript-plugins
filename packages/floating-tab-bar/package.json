@@ -1,0 +1,46 @@
+{
+  "name": "@x-labs-myid/floating-tab-bar",
+  "version": "1.0.0",
+  "description": "A floating tab bar plugin for NativeScript with XML support",
+  "main": "index",
+  "typings": "index.d.ts",
+  "nativescript": {
+    "platforms": {
+      "android": "6.0.0",
+      "ios": "6.0.0"
+    },
+    "plugin": {
+      "nan": "true",
+      "pan": "true",
+      "core3": "true",
+      "category": "Interface"
+    }
+  },
+  "keywords": [
+    "NativeScript",
+    "floating",
+    "tab",
+    "bar",
+    "navigation",
+    "xml",
+    "ui"
+  ],
+  "scripts": {
+    "build": "npm run build.all",
+    "build.all": "npm run build.tsc && npm run build.finish",
+    "build.tsc": "cpy '**/*.d.ts' '../../../dist/packages/floating-tab-bar/' --parents --cwd=. && tsc -skipLibCheck -d",
+    "build.finish": "node ../../../tools/scripts/build-finish.ts floating-tab-bar"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/x-labs-myid/nativescript-plugins.git"
+  },
+  "author": "X-Labs MyID",
+  "license": "MIT",
+  "dependencies": {
+    "@nativescript/core": "^8.0.0"
+  },
+  "devDependencies": {
+    "typescript": "^4.0.0"
+  }
+}

@@ -1,0 +1,173 @@
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" 
+      xmlns:ftb="@x-labs-myid/floating-tab-bar" 
+      navigatingTo="navigatingTo" 
+      class="page">
+    <Page.actionBar>
+        <ActionBar title="Floating Tab Bar Demo" class="action-bar" />
+    </Page.actionBar>
+    
+    <GridLayout rows="*, auto">
+        <!-- Content Area dengan ScrollView untuk demo scroll connection -->
+        <ScrollView row="0" class="p-20" scroll="{{ onScrollChanged }}">
+            <StackLayout>
+                <Label text="Floating Tab Bar Demo" class="h1 text-center m-20" />
+                <Label text="Scroll ke bawah untuk melihat tab bar berubah ke mode inline" class="text-center m-10" />
+                
+                <!-- Demo Controls -->
+                <StackLayout class="m-20 p-20" style="background-color: #f0f0f0; border-radius: 10;">
+                    <Label text="Demo Controls" class="h3 text-center" />
+                    
+                    <Button text="Toggle Inline Mode" tap="{{ toggleInlineMode }}" class="btn btn-primary m-5" />
+                    <Button text="Change Scroll Behavior" tap="{{ changeScrollBehavior }}" class="btn btn-secondary m-5" />
+                    
+                    <Label text="{{ currentState }}" class="text-center m-10" />
+                    <Label text="Scroll Behavior: {{ currentScrollBehavior }}" class="text-center" />
+                </StackLayout>
+                
+                <!-- Demo Content -->
+                <StackLayout class="m-20">
+                    <Label text="Home Content" class="h2" />
+                    <Label text="Ini adalah konten halaman Home. Tab bar akan berubah saat Anda scroll berdasarkan scroll behavior yang dipilih." class="body" />
+                    
+                    <StackLayout class="m-20 p-20 bg-primary" style="height: 300;">
+                        <Label text="Section 1" class="h3 text-white" />
+                        <Label text="Konten section pertama - scroll ke bawah untuk melihat efek tab bar" class="text-white" />
+                        <Label text="Scroll Offset: {{ scrollOffset }}" class="text-white m-10" />
+                    </StackLayout>
+                    
+                    <StackLayout class="m-20 p-20 bg-secondary" style="height: 300;">
+                        <Label text="Section 2" class="h3 text-white" />
+                        <Label text="Konten section kedua - tab bar seharusnya sudah inline sekarang" class="text-white" />
+                        <Label text="Tab State: {{ tabState }}" class="text-white m-10" />
+                    </StackLayout>
+                    
+                    <StackLayout class="m-20 p-20 bg-accent" style="height: 300;">
+                        <Label text="Section 3" class="h3 text-white" />
+                        <Label text="Konten section ketiga - coba scroll ke atas untuk kembali ke mode expanded" class="text-white" />
+                    </StackLayout>
+                    
+                    <StackLayout class="m-20 p-20 bg-primary" style="height: 300;">
+                        <Label text="Section 4" class="h3 text-white" />
+                        <Label text="Konten section keempat - akhir dari demo content" class="text-white" />
+                    </StackLayout>
+                    
+                    <StackLayout class="m-20 p-20" style="height: 200;">
+                        <Label text="End of Content" class="h3 text-center" />
+                        <Label text="Scroll ke atas untuk kembali ke awal" class="text-center" />
+                    </StackLayout>
+                </StackLayout>
+            </StackLayout>
+        </ScrollView>
+        
+        <!-- Floating Tab Bar dengan properti baru -->
+        <ftb:FloatingTabBar row="1" 
+                           selectedTabKey="home"
+                           tabSelected="{{ onTabSelected }}"
+                           stateChanged="{{ onStateChanged }}"
+                           scrollConnection="{{ onScrollConnection }}"
+                           tabBarBackgroundColor="#FFFFFF"
+                           cornerRadius="25"
+                           shadowColor="#000000"
+                           shadowOpacity="0.1"
+                           shadowRadius="10"
+                           tabBarMargin="16"
+                           tabBarPadding="8"
+                           isInline="{{ isInlineMode }}"
+                           scrollBehavior="{{ scrollBehavior }}"
+                           animationDuration="300">
+            
+            <!-- Home Tab dengan Font Icon -->
+            <ftb:TabItem key="home" 
+                        title="Home" 
+                        icon="font://&#xf015;" 
+                        iconClass="fas"
+                        enabled="true">
+                <StackLayout class="p-20">
+                    <Label text="Home Content" class="h2 text-center" />
+                    <Label text="Selamat datang di halaman Home!" class="text-center" />
+                    <Label text="Tab ini menampilkan konten utama aplikasi" class="text-center m-10" />
+                    
+                    <StackLayout class="m-20 p-20" style="background-color: #e3f2fd; border-radius: 10;">
+                        <Label text="Fitur Baru:" class="h3" />
+                        <Label text="• Scroll-based state transitions" class="body" />
+                        <Label text="• Inline dan expanded modes" class="body" />
+                        <Label text="• Customizable scroll behavior" class="body" />
+                        <Label text="• Enhanced animations" class="body" />
+                    </StackLayout>
+                </StackLayout>
+            </ftb:TabItem>
+            
+            <!-- Search Tab dengan Resource Icon -->
+            <ftb:TabItem key="search" 
+                        title="Search" 
+                        icon="res://ic_search"
+                        enabled="true">
+                <StackLayout class="p-20">
+                    <Label text="Search Content" class="h2 text-center" />
+                    <TextField hint="Cari sesuatu..." class="input" text="{{ searchText }}" />
+                    <Button text="Search" class="btn btn-primary m-10" tap="{{ performSearch }}" />
+                    
+                    <StackLayout class="m-20" visibility="{{ searchResults.length > 0 ? 'visible' : 'collapsed' }}">
+                        <Label text="Search Results:" class="h3" />
+                        <ListView items="{{ searchResults }}" class="m-10">
+                            <ListView.itemTemplate>
+                                <Label text="{{ title }}" class="list-item" />
+                            </ListView.itemTemplate>
+                        </ListView>
+                    </StackLayout>
+                </StackLayout>
+            </ftb:TabItem>
+            
+            <!-- Favorites Tab dengan System Icon -->
+            <ftb:TabItem key="favorites" 
+                        title="Favorites" 
+                        icon="sys://heart.fill"
+                        badge="{{ favoriteCount }}"
+                        badgeColor="#FF0000"
+                        enabled="true">
+                <!-- <Frame> -->
+                    <StackLayout class="p-20">
+                        <Label text="Favorites Content" class="h2 text-center" />
+                        <Label text="Daftar item favorit Anda ({{ favoriteCount }} items)" class="text-center" />
+                        
+                        <Button text="Add Random Favorite" class="btn btn-accent m-10" tap="{{ addFavorite }}" />
+                        <Button text="Clear Favorites" class="btn btn-outline m-5" tap="{{ clearFavorites }}" />
+                        
+                        <ListView items="{{ favoriteItems }}" class="m-10">
+                            <ListView.itemTemplate>
+                                <GridLayout columns="*, auto" class="list-item">
+                                    <Label col="0" text="{{ title }}" />
+                                    <Button col="1" text="×" class="btn-small" tap="{{ $parents['Page'].removeFavorite }}" />
+                                </GridLayout>
+                            </ListView.itemTemplate>
+                        </ListView>
+                    </StackLayout>
+                <!-- </Frame> -->
+            </ftb:TabItem>
+            
+            <!-- Profile Tab Standalone -->
+            <ftb:TabItem key="profile" 
+                        icon="font://&#xf007;" 
+                        iconClass="fas"
+                        isStandalone="true"
+                        enabled="true">
+                <StackLayout class="p-20">
+                    <Label text="Profile Content" class="h2 text-center" />
+                    <Image src="~/assets/avatar.png" class="avatar m-10" width="80" height="80" />
+                    <Label text="John Doe" class="h3 text-center" />
+                    <Label text="john.doe@example.com" class="text-center" />
+                    
+                    <StackLayout class="m-20 p-20" style="background-color: #f3e5f5; border-radius: 10;">
+                        <Label text="Profile Stats:" class="h3" />
+                        <Label text="Tabs Visited: {{ tabVisitCount }}" class="body" />
+                        <Label text="Scroll Events: {{ scrollEventCount }}" class="body" />
+                        <Label text="State Changes: {{ stateChangeCount }}" class="body" />
+                    </StackLayout>
+                    
+                    <Button text="Reset Stats" class="btn btn-outline m-10" tap="{{ resetStats }}" />
+                </StackLayout>
+            </ftb:TabItem>
+            
+        </ftb:FloatingTabBar>
+    </GridLayout>
+</Page>

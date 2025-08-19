@@ -57,6 +57,13 @@ module.exports = {
           description: '@/phone-number-field: Build',
         },
       },
+      // @/floating-tab-bar
+      'floating-tab-bar': {
+        build: {
+          script: 'nx run floating-tab-bar:build.all',
+          description: '@/floating-tab-bar: Build',
+        },
+      },
       'build-all': {
         script: 'nx run-many --target=build.all --all',
         description: 'Build all packages',
@@ -74,6 +81,10 @@ module.exports = {
       'phone-number-field': {
         script: 'nx run phone-number-field:focus',
         description: 'Focus on @/phone-number-field',
+      },
+      'floating-tab-bar': {
+        script: 'nx run floating-tab-bar:focus',
+        description: 'Focus on @/floating-tab-bar',
       },
       reset: {
         script: 'nx g @nativescript/plugin-tools:focus-packages',

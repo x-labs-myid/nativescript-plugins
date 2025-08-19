@@ -1,0 +1,144 @@
+.page {
+    background-color: #f5f5f5;
+}
+
+.avatar {
+    border-radius: 40;
+    margin: 10;
+}
+
+.list-item {
+    padding: 10;
+    border-bottom-width: 1;
+    border-bottom-color: #e0e0e0;
+}
+
+.bg-primary {
+    background-color: #3f51b5;
+}
+
+.bg-secondary {
+    background-color: #ff9800;
+}
+
+.bg-accent {
+    background-color: #e91e63;
+}
+
+.text-white {
+    color: white;
+}
+
+.input {
+    border-width: 1;
+    border-color: #ccc;
+    border-radius: 5;
+    padding: 10;
+    margin: 10;
+    background-color: white;
+}
+
+.btn {
+    border-radius: 5;
+    padding: 10;
+    margin: 5;
+}
+
+.btn-primary {
+    background-color: #3f51b5;
+    color: white;
+}
+
+.btn-secondary {
+    background-color: #ff9800;
+    color: white;
+}
+
+.btn-accent {
+    background-color: #e91e63;
+    color: white;
+}
+
+.btn-outline {
+    background-color: transparent;
+    color: #3f51b5;
+    border-width: 1;
+    border-color: #3f51b5;
+}
+
+.btn-small {
+    padding: 5;
+    margin: 2;
+    font-size: 12;
+    background-color: #f44336;
+    color: white;
+    border-radius: 15;
+    width: 30;
+    height: 30;
+}
+
+/* Enhanced demo styles */
+.demo-control-panel {
+    background-color: #f0f0f0;
+    border-radius: 10;
+    padding: 20;
+    margin: 20;
+}
+
+.stats-panel {
+    background-color: #e8f5e8;
+    border-radius: 10;
+    padding: 15;
+    margin: 10;
+}
+
+.feature-panel {
+    background-color: #e3f2fd;
+    border-radius: 10;
+    padding: 15;
+    margin: 10;
+}
+
+.profile-panel {
+    background-color: #f3e5f5;
+    border-radius: 10;
+    padding: 15;
+    margin: 10;
+}
+
+.h1 {
+    font-size: 24;
+    font-weight: bold;
+    margin: 10;
+}
+
+.h2 {
+    font-size: 20;
+    font-weight: bold;
+    margin: 8;
+}
+
+.h3 {
+    font-size: 16;
+    font-weight: bold;
+    margin: 6;
+}
+
+.body {
+    font-size: 14;
+    margin: 4;
+}
+
+.text-center {
+    text-alignment: center;
+}
+
+.m-5 { margin: 5; }
+.m-10 { margin: 10; }
+.m-15 { margin: 15; }
+.m-20 { margin: 20; }
+
+.p-5 { padding: 5; }
+.p-10 { padding: 10; }
+.p-15 { padding: 15; }
+.p-20 { padding: 20; }

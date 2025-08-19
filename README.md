@@ -1,9 +1,5 @@
-# NativeScript plugin of X-LABS | my.id
-
-## User Interface
+- [@/floating-tab-bar](packages/floating-tab-bar/README.md)
 - [@x-labs-myid/phone-number-field](packages/phone-number-field/README.md)
-
-## Utilities
 - [@x-labs-myid/rootbeer](packages/rootbeer/README.md)
 
 # How to use?
