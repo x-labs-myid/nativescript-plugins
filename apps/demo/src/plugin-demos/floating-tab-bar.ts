@@ -1,6 +1,6 @@
 import { Observable, EventData, Page, ObservableArray } from '@nativescript/core';
 import { DemoSharedFloatingTabBar } from '@demo/shared';
-import { FloatingTabBar, TabItem, FloatingTabBarState, ScrollConnection } from '@/floating-tab-bar';
+import { FloatingTabBar, TabItem, FloatingTabBarState, ScrollConnection } from '@x-labs-myid/floating-tab-bar';
 
 export function navigatingTo(args: EventData) {
   const page = <Page>args.object;
